@@ -1,0 +1,51 @@
+diff --git a/components/article-preview.vue b/components/article-preview.vue
+index 444f24e..c471ab1 100644
+--- a/components/article-preview.vue
++++ b/components/article-preview.vue
+@@ -6,6 +6,7 @@
+       sizes="(min-width: 1024px) 400px, 100vw"
+     >
+     <time class="tiny date">{{ ( new Date(post.fields.publishDate)).toDateString() }}</time>
++    <span class="tiny">– Posted in {{ post.fields.category }}</span>
+     <h4><nuxt-link :to="{ name: 'blog-slug', params: { slug: post.fields.slug }}" class="title">{{ post.fields.title }}</nuxt-link></h4>
+     <p>{{ post.fields.description }}</p>
+
+diff --git a/layouts/default.vue b/layouts/default.vue
+index 5b1a55a..4788cc5 100644
+--- a/layouts/default.vue
++++ b/layouts/default.vue
+@@ -1,22 +1,11 @@
+ <template>
+   <div class="container">
+-    <Greeting></Greeting>
+     <main role="main">
+       <nuxt/>
+     </main>
+   </div>
+ </template>
+
+-<script>
+-  import Greeting from '~/components/greeting.vue'
+-
+-  export default {
+-    components: {
+-      Greeting
+-    }
+-  }
+-</script>
+-
+ <style>
+   @font-face {
+     font-family: "Avenir";
+diff --git a/pages/blog/_slug.vue b/pages/blog/_slug.vue
+index e9ef0bb..94dcbd8 100644
+--- a/pages/blog/_slug.vue
++++ b/pages/blog/_slug.vue
+@@ -21,6 +21,7 @@
+       <main class="wrapper">
+         <div class="headline">
+           <time class="tiny">{{ ( new Date(post.fields.publishDate)).toDateString() }}</time>
++          <span class="tiny">– Posted in {{ post.fields.category }}</span>
+           <h1>{{ post.fields.title }}</h1>
+         </div>
+         <div class="copy">
